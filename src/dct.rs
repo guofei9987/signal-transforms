@@ -56,9 +56,6 @@ impl Dct {
 }
 
 
-
-
-
 pub struct Dct2D {
     row: usize,
     col: usize,
@@ -118,14 +115,12 @@ impl Dct2D {
     }
 
     pub fn idct_2d(&self, data: OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
-        println!("not yet!");
-
         //     对每一列做 idct
-        let tmp1 = (data.transpose().component_mul(&self.alpha_table_transpose_col)) * &self.cosine_table_transpose_col;
+        let tmp1 = (data.transpose().component_mul(&self.alpha_table_col)) * &self.cosine_table_transpose_col;
 
+        let tmp1 = tmp1.transpose();
         //     对每一行做 idct
-
-        (tmp1.component_mul(&self.alpha_table_transpose_row)) * &self.cosine_table_col
+        (tmp1.component_mul(&self.alpha_table_row)) * &self.cosine_table_transpose_row
     }
 }
 
