@@ -1,6 +1,6 @@
 [package]
 name = "signal-transforms"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Guo Fei <me@guofei.site>"]
 description = "A comprehensive Rust library for discrete and wavelet transforms, including DCT, Dct_2d, DWT2, and more."
@@ -17,3 +17,8 @@ path = "src/lib.rs"
 
 [dependencies]
 nalgebra = "0.33.1"
+
+
+
+[dev-dependencies]
+rand = "0.8"

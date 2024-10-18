@@ -1,6 +1,10 @@
 pub mod dct;
 mod utils;
 mod dct_raw;
+mod dct_s;
+
+
+
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right
