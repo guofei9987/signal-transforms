@@ -1,5 +1,16 @@
 # signal-transforms
 
+[![Crates.io](https://img.shields.io/crates/v/signal-transforms)](https://crates.io/crates/signal-transforms)
+[![Build Status](https://github.com/guofei9987/signal-transforms/actions/workflows/rust.yml/badge.svg)](https://github.com/guofei9987/signal-transforms/actions)
+[![Docs.rs](https://docs.rs/signal-transforms/badge.svg)](https://docs.rs/signal-transforms)
+[![License](https://img.shields.io/crates/l/signal-transforms)](https://github.com/your-username/your-repo/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/guofei9987/signal-transforms.svg?style=social&label=Star)](https://github.com/guofei9987/signal-transforms)
+[![Forks](https://img.shields.io/github/forks/guofei9987/signal-transforms.svg?style=social&label=Fork)](https://github.com/guofei9987/signal-transforms/fork)
+![Rust](https://img.shields.io/badge/Rust-1.60+-orange.svg)
+[![Crates.io Downloads](https://img.shields.io/crates/d/signal-transforms)](https://crates.io/crates/signal-transforms)
+[![GitHub Discussions](https://img.shields.io/github/discussions/guofei9987/signal-transforms)](https://github.com/guofei9987/signal-transforms/discussions)
+
+
 **signal-transforms** 是一个 Rust 库，专注于实现各种信号变换算法。包括：
 - 离散余弦变换（DCT）
 - 逆离散余弦变换（IDCT）

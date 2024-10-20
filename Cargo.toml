@@ -25,3 +25,4 @@ dct_raw = []
 
 [dev-dependencies]
 rand = "0.8"
+criterion = "0.5.1"
