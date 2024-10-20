@@ -47,7 +47,7 @@ impl Dct {
 
     /// One-dimensional Discrete Cosine Transform（DCT-II）
     ///
-    /// 公式：
+    /// Formula:
     /// ```latex
     /// F(u) = \alpha(u) \sum_{x=0}^{N-1} f(x) \cos \left( \frac{(2x + 1)u\pi}{2N} \right)
     ///
@@ -65,7 +65,7 @@ impl Dct {
 
     /// One-dimensional Inverse Discrete Cosine Transform（IDCT-III）
     ///
-    /// 公式：
+    /// Formula:
     /// ```latex
     /// f(x) = \sum_{u=0}^{N-1} \alpha(u) F(u) \cos \left( \frac{(2x + 1)u\pi}{2N} \right)
     ///
@@ -132,7 +132,7 @@ impl Dct2D {
     }
 }
 
-
+/// `Dct4x4` is 20x faster than `Dct2D`
 pub struct Dct4x4 {
     cosine_table_row: OMatrix<f32, U4, U4>,
     alpha_table_row: OMatrix<f32, U4, U4>,
