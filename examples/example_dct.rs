@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod examples {
-    use nalgebra::DMatrix;
-    use signal_transforms::dct::{Dct, Dct2D};
     #[test]
     fn example_dct_1d() {
+        use nalgebra::DMatrix;
+        use signal_transforms::dct::Dct;
         let dct = Dct::new(4);
 
         let vec1 = vec![52.0, 55.0, 61.0, 66.0];
@@ -21,6 +21,8 @@ mod examples {
 
     #[test]
     fn example_dct_2d() {
+        use nalgebra::DMatrix;
+        use signal_transforms::dct::Dct2D;
         let matrix = vec![
             52.0, 55.0, 61.0, 66.0,
             70.0, 61.0, 64.0, 73.0,

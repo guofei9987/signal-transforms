@@ -1,38 +1,60 @@
 # signal-transforms
-A comprehensive Rust library for discrete and wavelet transforms, including DCT, and more.
 
+**signal-transforms** is a Rust library dedicated to implementing various signal transformation algorithms, including:
 
-## How to use
+- Discrete Cosine Transform (DCT)
+- Inverse Discrete Cosine Transform (IDCT)
+- Two-Dimensional Discrete Cosine Transform (DCT2)
+- Inverse Two-Dimensional Discrete Cosine Transform (IDCT2)
+- Future plans to support more signal processing algorithms
 
-dct 1 dimension
+## Installation
+
+Add the following dependency to your `Cargo.toml` file:
+
+```toml
+[dependencies]
+signal-transforms = "0.1.3"
+```
+
+# How To Use
+
+## Discrete Cosine Transform (DCT)
+
+### One-Dimensional DCT
 
 ```rust
-    use nalgebra::DMatrix;
-use signal_transforms::dct::{Dct, Dct2D};
-#[test]
 fn example_dct_1d() {
+    use nalgebra::DMatrix;
+    use signal_transforms::dct::Dct;
+    
+    // Create a new DCT instance with size 4
     let dct = Dct::new(4);
 
+    // Define a vector of sample data
     let vec1 = vec![52.0, 55.0, 61.0, 66.0];
     let vec1 = DMatrix::from_vec(1, 4, vec1);
 
-    let dct_res = dct.dct_1d(vec1);
+    // Perform the 1D DCT
+    let dct_res = dct.dct_1d(&vec1);
 
-    println!("dct_res={}", dct_res);
-    println!("dct_res={:?}", dct_res);
+    println!("DCT result = {}", dct_res);
 
-    let idct_res = dct.idct_1d(dct_res);
+    // Perform the inverse 1D DCT
+    let idct_res = dct.idct_1d(&dct_res);
 
-    println!("idct_res={}", idct_res);
+    println!("Inverse DCT result = {}", idct_res);
 }
 ```
 
-
-DCT 2 Dimension
+### Two-Dimensional DCT
 
 ```rust
-#[test]
 fn example_dct_2d() {
+    use nalgebra::DMatrix;
+    use signal_transforms::dct::Dct2D;
+    
+    // Define a 4x4 matrix of sample data
     let matrix = vec![
         52.0, 55.0, 61.0, 66.0,
         70.0, 61.0, 64.0, 73.0,
@@ -42,14 +64,34 @@ fn example_dct_2d() {
 
     let matrix = DMatrix::from_row_slice(4, 4, &matrix);
 
+    // Create a new 2D DCT instance with dimensions 4x4
     let dct = Dct2D::new(4, 4);
 
-    let dct_res = dct.dct_2d(matrix);
+    // Perform the 2D DCT
+    let dct_res = dct.dct_2d(&matrix);
 
-    println!("dct_res={}", dct_res);
+    println!("DCT result = {}", dct_res);
 
-    let idct_res = dct.idct_2d(dct_res);
-    println!("idct_res={}", idct_res);
+    // Perform the inverse 2D DCT
+    let idct_res = dct.idct_2d(&dct_res);
+    println!("Inverse DCT result = {}", idct_res);
 }
 ```
 
+## Future Enhancements
+
+- Support for additional signal processing algorithms.
+- Optimization for performance and memory usage.
+- Comprehensive documentation and examples for advanced use cases.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues and pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+For more information, visit the [official documentation](https://github.com/your-repo/signal-transforms).

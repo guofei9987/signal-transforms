@@ -14,30 +14,30 @@
 
 ```toml
 [dependencies]
-signal-transforms = "0.1.0"
+signal-transforms = "0.1.3"
 ```
 
 
-# 使用示例
+# How To Use
 
 ## 离散余弦变换（DCT）
 
 一维 DCT
 
 ```rust
-use signal_transforms::dct::{Dct, Dct2D};
-
 fn example_dct_1d() {
+    use nalgebra::DMatrix;
+    use signal_transforms::dct::Dct;
     let dct = Dct::new(4);
 
     let vec1 = vec![52.0, 55.0, 61.0, 66.0];
     let vec1 = DMatrix::from_vec(1, 4, vec1);
 
-    let dct_res = dct.dct_1d(vec1);
+    let dct_res = dct.dct_1d(&vec1);
 
     println!("dct result = {}", dct_res);
 
-    let idct_res = dct.idct_1d(dct_res);
+    let idct_res = dct.idct_1d(&dct_res);
 
     println!("idct result = {}", idct_res);
 }
@@ -46,6 +46,8 @@ fn example_dct_1d() {
 二维 DCT
 ```rust
 fn example_dct_2d() {
+    use nalgebra::DMatrix;
+    use signal_transforms::dct::Dct2D;
     let matrix = vec![
         52.0, 55.0, 61.0, 66.0,
         70.0, 61.0, 64.0, 73.0,
@@ -57,11 +59,11 @@ fn example_dct_2d() {
 
     let dct = Dct2D::new(4, 4);
 
-    let dct_res = dct.dct_2d(matrix);
+    let dct_res = dct.dct_2d(&matrix);
 
     println!("dct result = {}", dct_res);
 
-    let idct_res = dct.idct_2d(dct_res);
+    let idct_res = dct.idct_2d(&dct_res);
     println!("idct result = {}", idct_res);
 }
 ```
