@@ -1,5 +1,8 @@
 # signal-transforms
 
+- Documentation: [https://docs.rs/signal-transforms/](https://docs.rs/signal-transforms/)
+- Source code: [https://github.com/guofei9987/signal-transforms](https://github.com/guofei9987/signal-transforms)
+
 [![Crates.io](https://img.shields.io/crates/v/signal-transforms)](https://crates.io/crates/signal-transforms)
 [![Build Status](https://github.com/guofei9987/signal-transforms/actions/workflows/rust.yml/badge.svg)](https://github.com/guofei9987/signal-transforms/actions)
 [![Docs.rs](https://docs.rs/signal-transforms/badge.svg)](https://docs.rs/signal-transforms)
@@ -9,7 +12,6 @@
 ![Rust](https://img.shields.io/badge/Rust-1.60+-orange.svg)
 [![Crates.io Downloads](https://img.shields.io/crates/d/signal-transforms)](https://crates.io/crates/signal-transforms)
 [![GitHub Discussions](https://img.shields.io/github/discussions/guofei9987/signal-transforms)](https://github.com/guofei9987/signal-transforms/discussions)
-
 
 **signal-transforms** is a Rust library dedicated to implementing various signal transformation algorithms, including:
 
@@ -38,7 +40,7 @@ signal-transforms = "0.1.3"
 fn example_dct_1d() {
     use nalgebra::DMatrix;
     use signal_transforms::dct::Dct;
-    
+
     // Create a new DCT instance with size 4
     let dct = Dct::new(4);
 
@@ -64,7 +66,7 @@ fn example_dct_1d() {
 fn example_dct_2d() {
     use nalgebra::DMatrix;
     use signal_transforms::dct::Dct2D;
-    
+
     // Define a 4x4 matrix of sample data
     let matrix = vec![
         52.0, 55.0, 61.0, 66.0,
@@ -89,12 +91,12 @@ fn example_dct_2d() {
 }
 ```
 
-
 ### `Dct4x4` is 20x faster than `Dct2D`
 
 ```rust
 #[test]
 fn example_dct_4x4() {
+    use nalgebra::Matrix4;
     use signal_transforms::dct::Dct4x4;
     let matrix = Matrix4::new(
         52.0, 55.0, 61.0, 66.0,
@@ -113,8 +115,6 @@ fn example_dct_4x4() {
     println!("idct result = {}", idct_res);
 }
 ```
-
-
 
 ## Future Enhancements
 

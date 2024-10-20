@@ -1,4 +1,5 @@
-/*! # signal-transforms
+/*!
+# signal-transforms
 
 - Documentation: [https://docs.rs/signal-transforms/](https://docs.rs/signal-transforms/)
 - Source code: [https://github.com/guofei9987/signal-transforms](https://github.com/guofei9987/signal-transforms)
@@ -14,8 +15,6 @@
 [![GitHub Discussions](https://img.shields.io/github/discussions/guofei9987/signal-transforms)](https://github.com/guofei9987/signal-transforms/discussions)
 
 
-
-
 **signal-transforms** is a Rust library dedicated to implementing various signal transformation algorithms, including:
 
 - Discrete Cosine Transform (DCT)
@@ -23,9 +22,6 @@
 - Two-Dimensional Discrete Cosine Transform (DCT2)
 - Inverse Two-Dimensional Discrete Cosine Transform (IDCT2)
 - Future plans to support more signal processing algorithms
-
-
-
 
 ## Installation
 
