@@ -2,46 +2,21 @@ name: Rust
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        # 指定要测试的 Rust 版本
-        rust: [stable, beta, nightly]
-
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rust
-        uses: actions/setup-rust@v3
-        with:
-          rust-version: ${{ matrix.rust }}
-
-      - name: Cache Cargo registry
-        uses: actions/cache@v3
-        with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-registry-
-
-      - name: Cache Cargo build
-        uses: actions/cache@v3
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-build-
-
+      - uses: actions/checkout@v4
       - name: Build
         run: cargo build --verbose
-
       - name: Run tests
         run: cargo test --verbose
