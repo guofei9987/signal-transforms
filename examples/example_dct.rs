@@ -37,8 +37,8 @@ mod examples {
 
         println!("dct_res={}", dct_res);
 
-        // let idct_res = dct.idct_2d(dct_res);
-        // println!("idct_res={}", idct_res);
+        let idct_res = dct.idct_2d(dct_res);
+        println!("idct_res={}", idct_res);
     }
 }
 

@@ -1,5 +1,5 @@
 use std::f32::consts::PI;
-use nalgebra::{DMatrix, Dyn, Matrix1x4, Matrix2, Matrix2x1, Matrix2x3, Matrix4, Matrix4x1, OMatrix, U4};
+use nalgebra::{DMatrix, Dyn, Matrix1x4, Matrix4, Matrix4x1, OMatrix, U4};
 
 fn generate_cosine_table(size: usize) -> Vec<f32> {
     let mut data = Vec::with_capacity(size * size);
@@ -155,18 +155,16 @@ fn tst3() {
 }
 
 
-
 #[test]
 fn tst5() {
-    let matrix = vec![
+    let matrix: Vec<f32> = vec![
         52.0, 55.0, 61.0, 66.0,
-        70.0, 61.0, 64.0, 73.0,
-        63.0, 59.0, 55.0, 90.0,
+        70.0, 61.0, 64.0, 73.0
     ];
 
-    let matrix = DMatrix::from_row_slice(3, 4, &matrix);
+    let matrix = DMatrix::from_row_slice(2, 4, &matrix);
 
-    let dct = Dct2D::new(3, 4);
+    let dct = Dct2D::new(2, 4);
 
     let dct_res = dct.dct_2d(matrix);
 
@@ -178,7 +176,7 @@ fn tst5() {
 }
 
 
-struct Dct4x4 {
+pub struct Dct4x4 {
     cosine_table_row: OMatrix<f32, U4, U4>,
     alpha_table_row: OMatrix<f32, U4, U4>,
     cosine_table_transpose_row: OMatrix<f32, U4, U4>,
@@ -208,24 +206,23 @@ impl Dct4x4 {
 
         }
     }
-}
 
 
-
-#[test]
-fn tst4() {
-    let a = vec![1.0, 2.0, 3.0, 4.0, ];
-    let a1 = Matrix2::from_row_slice(&a);
-
-    let c1 = Matrix2::from_element(1.0) * a1;
-
-    println!("{}", c1);
-}
+    pub fn dct_2d(&self, data: OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
+        // 对每行做 dct
+        let tmp = (data * &self.cosine_table_row).component_mul(&self.alpha_table_row);
+        // 对每列做dct
+        (&self.cosine_table_transpose_col * tmp).component_mul(&self.alpha_table_transpose_col)
+    }
 
 
-struct Dct8x8 {
-    cosine_table: [[f32; 8]; 8],
-    alpha_table: [f32; 8],
+    pub fn idct_2d(&self, data: OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
+        //     对每一列做 idct
+        let tmp = &self.cosine_table_col * (data.component_mul(&self.alpha_table_transpose_col));
+
+        //     对每一行做 idct
+        (tmp.component_mul(&self.alpha_table_row)) * &self.cosine_table_transpose_row
+    }
 }
 
 

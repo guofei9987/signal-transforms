@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests_all {
     use signal_transforms::dct::{Dct, Dct2D};
-    use nalgebra::{DMatrix, OMatrix, Dynamic, Matrix};
+    use nalgebra::{DMatrix, Matrix4};
     use rand::Rng;
 
     /// 辅助函数：生成随机一维数据
@@ -41,7 +41,6 @@ mod tests_all {
     }
 
     fn test_dct_2d(rows: usize, cols: usize) {
-        println!("{}x{}", rows, cols);
         let dct2d = Dct2D::new(rows, cols);
 
         // 生成随机输入数据
@@ -79,6 +78,52 @@ mod tests_all {
             test_dct_2d(rows, cols);
         }
     }
+
+    use signal_transforms::dct::{Dct4x4};
+
+    #[test]
+    fn test_dct_4x4_equal_to_dct() {
+        let dct = Dct2D::new(4, 4);
+        let dct_4x4 = Dct4x4::new();
+
+        let input_data = generate_random_2d(4, 4);
+
+        let matrix1 = DMatrix::from_row_slice(4, 4, &input_data);
+
+        let matrix2 = Matrix4::from_row_slice(&input_data);
+
+        let dct_res1 = dct.dct_2d(matrix1);
+        let dct_res2 = dct_4x4.dct_2d(matrix2);
+
+        let dct_res2 = DMatrix::from_row_slice(4, 4, dct_res2.as_slice()).transpose();
+
+        assert_matrices_close(&dct_res1, &dct_res2, EPSILON);
+    }
+
+
+    #[test]
+    fn test_dct_4x4() {
+        let mut rng = rand::thread_rng();
+        // 进行多次随机测试
+        for _ in 0..100 {
+            let dct2d = Dct4x4::new();
+
+            // 生成随机输入数据
+            let input_data = generate_random_2d(4, 4);
+            let input = Matrix4::from_row_slice(&input_data);
+
+            // 进行 2D DCT 变换
+            let dct_result = dct2d.dct_2d(input.clone());
+
+            // 进行 2D IDCT 逆变换
+            let idct_result = dct2d.idct_2d(dct_result);
+
+
+            let input_dyn = DMatrix::from_row_slice(4, 4, input.as_slice()).transpose();
+            let idct_result_dyn = DMatrix::from_row_slice(4, 4, idct_result.as_slice()).transpose();
+
+            // 比较原始输入和逆变换后的结果
+            assert_matrices_close(&input_dyn, &idct_result_dyn, EPSILON);
+        }
+    }
 }
-
-
