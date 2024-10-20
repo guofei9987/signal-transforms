@@ -18,6 +18,9 @@ path = "src/lib.rs"
 [dependencies]
 nalgebra = "0.33.1"
 
+[features]
+default = []
+dct_raw = []
 
 
 [dev-dependencies]

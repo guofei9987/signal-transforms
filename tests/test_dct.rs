@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod tests_all {
+mod tests_dct {
     use signal_transforms::dct::{Dct, Dct2D};
     use nalgebra::{DMatrix, Matrix4};
     use rand::Rng;
@@ -31,10 +31,10 @@ mod tests_all {
         let input = DMatrix::from_row_slice(1, size, &input_data);
 
         // 进行 DCT 变换
-        let dct_result = dct.dct_1d(input.clone());
+        let dct_result = dct.dct_1d(&input);
 
         // 进行 IDCT 逆变换
-        let idct_result = dct.idct_1d(dct_result);
+        let idct_result = dct.idct_1d(&dct_result);
 
         // 比较原始输入和逆变换后的结果
         assert_matrices_close(&input, &idct_result, EPSILON);
@@ -48,10 +48,10 @@ mod tests_all {
         let input = DMatrix::from_row_slice(rows, cols, &input_data);
 
         // 进行 2D DCT 变换
-        let dct_result = dct2d.dct_2d(input.clone());
+        let dct_result = dct2d.dct_2d(&input);
 
         // 进行 2D IDCT 逆变换
-        let idct_result = dct2d.idct_2d(dct_result);
+        let idct_result = dct2d.idct_2d(&dct_result);
 
         // 比较原始输入和逆变换后的结果
         assert_matrices_close(&input, &idct_result, EPSILON);
@@ -92,8 +92,8 @@ mod tests_all {
 
         let matrix2 = Matrix4::from_row_slice(&input_data);
 
-        let dct_res1 = dct.dct_2d(matrix1);
-        let dct_res2 = dct_4x4.dct_2d(matrix2);
+        let dct_res1 = dct.dct_2d(&matrix1);
+        let dct_res2 = dct_4x4.dct_2d(&matrix2);
 
         let dct_res2 = DMatrix::from_row_slice(4, 4, dct_res2.as_slice()).transpose();
 
@@ -103,7 +103,6 @@ mod tests_all {
 
     #[test]
     fn test_dct_4x4() {
-        let mut rng = rand::thread_rng();
         // 进行多次随机测试
         for _ in 0..100 {
             let dct2d = Dct4x4::new();
@@ -113,10 +112,10 @@ mod tests_all {
             let input = Matrix4::from_row_slice(&input_data);
 
             // 进行 2D DCT 变换
-            let dct_result = dct2d.dct_2d(input.clone());
+            let dct_result = dct2d.dct_2d(&input);
 
             // 进行 2D IDCT 逆变换
-            let idct_result = dct2d.idct_2d(dct_result);
+            let idct_result = dct2d.idct_2d(&dct_result);
 
 
             let input_dyn = DMatrix::from_row_slice(4, 4, input.as_slice()).transpose();

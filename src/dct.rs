@@ -45,7 +45,7 @@ impl Dct {
     }
 
 
-    /// 一维离散余弦变换（DCT-II）
+    /// One-dimensional Discrete Cosine Transform（DCT-II）
     ///
     /// 公式：
     /// ```latex
@@ -58,12 +58,12 @@ impl Dct {
     /// \end{cases}
     /// ```
 
-    pub fn dct_1d(&self, data: OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
+    pub fn dct_1d(&self, data: &OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
         (data * &self.cosine_table).component_mul(&self.alpha_table)
     }
 
 
-    /// 一维离散余弦逆变换（IDCT-III）
+    /// One-dimensional Inverse Discrete Cosine Transform（IDCT-III）
     ///
     /// 公式：
     /// ```latex
@@ -75,8 +75,7 @@ impl Dct {
     ///     \sqrt{\frac{2}{N}} & \text{otherwise}
     /// \end{cases}
     /// ```
-
-    pub fn idct_1d(&self, data: OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
+    pub fn idct_1d(&self, data: &OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
         (data.component_mul(&self.alpha_table)) * &self.cosine_table_transpose
     }
 }
@@ -114,7 +113,8 @@ impl Dct2D {
         }
     }
 
-    pub fn dct_2d(&self, data: OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
+    /// Two-dimensional Discrete Cosine Transform（DCT-II）
+    pub fn dct_2d(&self, data: &OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
         // 对每行做 dct
         let tmp = (data * &self.cosine_table_row).component_mul(&self.alpha_table_row);
         // 对每列做dct
@@ -122,57 +122,14 @@ impl Dct2D {
     }
 
 
-    pub fn idct_2d(&self, data: OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
+    /// Two-dimensional Inverse Discrete Cosine Transform（IDCT-III）
+    pub fn idct_2d(&self, data: &OMatrix<f32, Dyn, Dyn>) -> OMatrix<f32, Dyn, Dyn> {
         //     对每一列做 idct
         let tmp = &self.cosine_table_col * (data.component_mul(&self.alpha_table_transpose_col));
 
         //     对每一行做 idct
         (tmp.component_mul(&self.alpha_table_row)) * &self.cosine_table_transpose_row
     }
-}
-
-
-#[test]
-fn tst3() {
-    let matrix = vec![
-        52.0, 55.0, 61.0, 66.0,
-        70.0, 61.0, 64.0, 73.0,
-        63.0, 59.0, 55.0, 90.0,
-        67.0, 61.0, 68.0, 104.0,
-    ];
-
-    let matrix = DMatrix::from_row_slice(4, 4, &matrix);
-
-    let dct = Dct2D::new(4, 4);
-
-    let dct_res = dct.dct_2d(matrix);
-
-    println!("dct_res={}", dct_res);
-
-    let idct_res = dct.idct_2d(dct_res);
-
-    println!("idct_res={}", idct_res);
-}
-
-
-#[test]
-fn tst5() {
-    let matrix: Vec<f32> = vec![
-        52.0, 55.0, 61.0, 66.0,
-        70.0, 61.0, 64.0, 73.0
-    ];
-
-    let matrix = DMatrix::from_row_slice(2, 4, &matrix);
-
-    let dct = Dct2D::new(2, 4);
-
-    let dct_res = dct.dct_2d(matrix);
-
-    println!("dct_res={}", dct_res);
-
-    let idct_res = dct.idct_2d(dct_res);
-
-    println!("idct_res={}", idct_res);
 }
 
 
@@ -208,7 +165,7 @@ impl Dct4x4 {
     }
 
 
-    pub fn dct_2d(&self, data: OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
+    pub fn dct_2d(&self, data: &OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
         // 对每行做 dct
         let tmp = (data * &self.cosine_table_row).component_mul(&self.alpha_table_row);
         // 对每列做dct
@@ -216,7 +173,7 @@ impl Dct4x4 {
     }
 
 
-    pub fn idct_2d(&self, data: OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
+    pub fn idct_2d(&self, data: &OMatrix<f32, U4, U4>) -> OMatrix<f32, U4, U4> {
         //     对每一列做 idct
         let tmp = &self.cosine_table_col * (data.component_mul(&self.alpha_table_transpose_col));
 

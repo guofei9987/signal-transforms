@@ -9,14 +9,13 @@ mod examples {
         let vec1 = vec![52.0, 55.0, 61.0, 66.0];
         let vec1 = DMatrix::from_vec(1, 4, vec1);
 
-        let dct_res = dct.dct_1d(vec1);
+        let dct_res = dct.dct_1d(&vec1);
 
-        println!("dct_res={}", dct_res);
-        println!("dct_res={:?}", dct_res);
+        println!("dct result = {}", dct_res);
 
-        let idct_res = dct.idct_1d(dct_res);
+        let idct_res = dct.idct_1d(&dct_res);
 
-        println!("idct_res={}", idct_res);
+        println!("idct result = {}", idct_res);
     }
 
 
@@ -33,12 +32,12 @@ mod examples {
 
         let dct = Dct2D::new(4, 4);
 
-        let dct_res = dct.dct_2d(matrix);
+        let dct_res = dct.dct_2d(&matrix);
 
-        println!("dct_res={}", dct_res);
+        println!("dct result = {}", dct_res);
 
-        let idct_res = dct.idct_2d(dct_res);
-        println!("idct_res={}", idct_res);
+        let idct_res = dct.idct_2d(&dct_res);
+        println!("idct result = {}", idct_res);
     }
 }
 
