@@ -1,8 +1,7 @@
+#[cfg(feature = "dct_v0")]
 #[cfg(test)]
-#[cfg(feature = "dct_raw")]
-mod tests_dct_raw {
-    use signal_transforms::dct_raw_algo::{dct_1d, dct_2d, idct_1d, idct_2d};
-
+mod tests_dct_v1 {
+    use signal_transforms::dct_v0::{dct_1d, idct_1d, dct_2d, idct_2d};
 
     #[test]
     fn tst_dct_1d() {

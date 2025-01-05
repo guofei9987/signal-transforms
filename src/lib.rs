@@ -142,8 +142,16 @@ For more information, visit the [official documentation](https://github.com/your
 
 
 pub mod dct;
-mod dct_s;
-mod dct_raw;
+mod dct_v1;
 
-#[cfg(feature = "dct_raw")]
-pub use dct_raw::dct_raw_algo;
+#[cfg(feature = "dct_v0")]
+pub mod dct_v0;
+
+
+
+
+// pub use dct_v0::dct_v0;
+
+
+#[cfg(feature = "dct_v1")]
+pub use dct_v1::dct_v1;

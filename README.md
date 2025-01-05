@@ -6,7 +6,7 @@
 [![Crates.io](https://img.shields.io/crates/v/signal-transforms)](https://crates.io/crates/signal-transforms)
 [![Build Status](https://github.com/guofei9987/signal-transforms/actions/workflows/rust.yml/badge.svg)](https://github.com/guofei9987/signal-transforms/actions)
 [![Docs.rs](https://docs.rs/signal-transforms/badge.svg)](https://docs.rs/signal-transforms)
-[![License](https://img.shields.io/crates/l/signal-transforms)](https://github.com/your-username/your-repo/blob/master/LICENSE)
+[![License](https://img.shields.io/crates/l/signal-transforms)](https://github.com/guofei9987/signal-transforms/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/guofei9987/signal-transforms.svg?style=social&label=Star)](https://github.com/guofei9987/signal-transforms)
 [![Forks](https://img.shields.io/github/forks/guofei9987/signal-transforms.svg?style=social&label=Fork)](https://github.com/guofei9987/signal-transforms/fork)
 ![Rust](https://img.shields.io/badge/Rust-1.60+-orange.svg)
@@ -115,6 +115,34 @@ fn example_dct_4x4() {
     println!("idct result = {}", idct_res);
 }
 ```
+
+## Test and Benchmark
+
+### Do Tests
+
+```shell
+cargo test
+```
+
+To test all features:
+1. Install `cargo-hack`
+    ```shell
+    cargo install cargo-hack
+    ```
+2. Test all features
+    ```shell
+    cargo hack test --each-feature
+    ```
+
+### Benchmark
+
+```bash
+cargo bench
+```
+
+The result is in `./target/criterion`
+
+
 
 ## Future Enhancements
 
