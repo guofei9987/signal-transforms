@@ -51,7 +51,7 @@ pub fn bench_idct_4x4(c: &mut Criterion) {
 
     let dct = Dct4x4::new();
 
-    c.bench_function("dct_4x4", |b| b.iter(|| dct.idct_2d(black_box(&matrix))));
+    c.bench_function("idct_4x4", |b| b.iter(|| dct.idct_2d(black_box(&matrix))));
 }
 
 criterion_group!(benches, bench_dct, bench_idct, bench_dct_4x4, bench_idct_4x4);

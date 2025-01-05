@@ -3,6 +3,23 @@
 mod tests_dct_v1 {
     use signal_transforms::dct_v0::{dct_1d, idct_1d, dct_2d, idct_2d};
 
+    pub fn assert_vec_approx_eq(a: &[f64], b: &[f64], eps: f64) {
+        assert_eq!(a.len(), b.len(), "Length mismatch: {} vs {}", a.len(), b.len());
+
+        for i in 0..a.len() {
+            let diff = (a[i] - b[i]).abs();
+            assert!(
+                diff <= eps,
+                "Values differ at index {i}: a[i] = {}, b[i] = {}, diff = {diff}, eps = {}",
+                a[i],
+                b[i],
+                eps
+            );
+        }
+    }
+
+    const EPSILON: f64 = 1e-2;
+
     #[test]
     fn tst_dct_1d() {
         let vec1 = vec![52.0, 55.0, 61.0, 66.0];
@@ -10,6 +27,8 @@ mod tests_dct_v1 {
         println!("dct result: {:?}", dct);
         let idct = idct_1d(&dct);
         println!("idct result: {:?}", idct);
+
+        assert_vec_approx_eq(&vec1, &idct, EPSILON);
     }
     #[test]
     fn tst_dct_2d() {

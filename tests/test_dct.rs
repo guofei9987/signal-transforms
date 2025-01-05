@@ -22,7 +22,6 @@ mod tests_dct {
     }
 
 
-
     const EPSILON: f32 = 1e-2;
 
     fn test_dct_1d(size: usize) {
@@ -104,14 +103,13 @@ mod tests_dct {
 
     #[test]
     fn test_dct_4x4_equal_to_dct_batch() {
-        for _ in 0..100{
+        for _ in 0..100 {
             test_dct_4x4_equal_to_dct()
         }
-
     }
 
 
-    fn test_dct_4x4(){
+    fn test_dct_4x4() {
         let dct2d = Dct4x4::new();
 
         // 生成随机输入数据
@@ -139,5 +137,51 @@ mod tests_dct {
         for _ in 0..100 {
             test_dct_4x4()
         }
+    }
+
+
+    #[test]
+    fn test_dct_2d_case1() {
+        use nalgebra::DMatrix;
+
+
+
+
+        let matrix = DMatrix::from_row_slice(
+            4, 4, &vec![
+                52.0, 55.0, 61.0, 66.0,
+                70.0, 61.0, 64.0, 73.0,
+                63.0, 59.0, 55.0, 90.0,
+                67.0, 61.0, 68.0, 104.0,
+            ]);
+
+
+        let dct_res_true = DMatrix::from_row_slice(
+            4, 4,
+            &vec![267.2500000000001, -28.081488339185224, 25.249999999999993, -7.0395321333313605,
+                  -21.422989895423672, 13.72271824131503, -15.906909174531297, 6.633883476483184,
+                  -0.24999999999999997, -8.753641916112663, -3.249999999999998, 1.7316908512997828,
+                  -9.25637639363135, -4.866116523516818, 1.4474945641390065, -5.722718241315029]);
+
+        let dct = Dct2D::new(4, 4);
+        let dct_res = dct.dct_2d(&matrix);
+
+        assert_matrices_close(&dct_res, &dct_res_true, EPSILON);
+    }
+
+    #[test]
+    fn test_dct_1d_case1() {
+        use nalgebra::DMatrix;
+        let dct = Dct::new(4);
+
+        let dct_res_true = DMatrix::from_row_slice(
+            1, 4,
+            &vec![117.00000000000001, -10.769529054573226, 0.9999999999999999, 0.13131619360575053]);
+
+        let vec1 = DMatrix::from_vec(1, 4,  vec![52.0, 55.0, 61.0, 66.0]);
+
+        let dct_res = dct.dct_1d(&vec1);
+
+        assert_matrices_close(&dct_res, &dct_res_true, EPSILON);
     }
 }

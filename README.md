@@ -116,23 +116,19 @@ fn example_dct_4x4() {
 }
 ```
 
-## Test and Benchmark
+## Tests and Benchmark
 
-### Do Tests
+### Tests
 
 ```shell
 cargo test
 ```
 
-To test all features:
-1. Install `cargo-hack`
-    ```shell
-    cargo install cargo-hack
-    ```
-2. Test all features
-    ```shell
-    cargo hack test --each-feature
-    ```
+Or:
+
+```shell
+cargo test --all-features
+```
 
 ### Benchmark
 

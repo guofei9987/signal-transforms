@@ -1,4 +1,4 @@
-#[cfg(feature = "dct_v1")]
+#[cfg(feature = "dct_v0")]
 pub mod dct_v1 {
     use std::f32::consts::PI;
     use nalgebra::{DMatrix, Dyn, Matrix1x4, Matrix4, Matrix4x1, OMatrix, U4};
