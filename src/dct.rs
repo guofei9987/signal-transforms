@@ -1,5 +1,5 @@
 use std::f32::consts::PI;
-use nalgebra::{DMatrix, Dyn, Matrix1x4, Matrix4, Matrix4x1, OMatrix, U4};
+use nalgebra::{DMatrix, Dyn, Matrix4, OMatrix, U4};
 
 fn gen_d_matrix(size: usize) -> OMatrix<f32, Dyn, Dyn> {
     let mut data = Vec::with_capacity(size * size);
